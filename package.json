@@ -1,7 +1,7 @@
 {
-  "name": "oproxy",
+  "name": "ipgc-proxy",
   "version": "1.0.0",
-  "description": "Oauth proxy",
+  "description": "ipgc oauth proxy",
   "scripts": {
     "start": "node --max-old-space-size=450 --gc_global --gc_interval=100 server.js"
   },
