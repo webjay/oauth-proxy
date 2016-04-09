@@ -11,6 +11,11 @@ function defaultResponse (res) {
 }
 
 function handler (req, res) {
+  if (urlParse(req.url).pathname !== '/') {
+    res.writeHead(404);
+    res.end('not found');
+    return;
+  }
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET');
   res.setHeader('Access-Control-Allow-Headers', 'accept, origin, content-type');
@@ -28,6 +33,12 @@ function handler (req, res) {
         url: query.url,
         oauth: oauth,
         json: true
+      }).on('response', (response) => {
+        delete response.headers['expires'];
+        delete response.headers['cache-control'];
+        delete response.headers['pragma'];
+        delete response.headers['set-cookie'];
+        response.headers['cache-control'] = 'private, max-age=3600';
       }).pipe(res);
       break;
     default:
