@@ -19,6 +19,8 @@ function handler (req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET');
   res.setHeader('Access-Control-Allow-Headers', 'accept, origin, content-type');
+  res.setHeader('Access-Control-Max-Age', 86400);
+  res.setHeader('Access-Control-Expose-Headers', 'X-Rate-Limit-Remaining');
   switch (req.method) {
     case 'GET':
       const query = urlParse(req.url, true).query;
