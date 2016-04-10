@@ -23,12 +23,12 @@ function handler (req, res) {
       res.end();
       break;
     case 'GET':
-      if (!urlParsed.query.url) {
+      if (!urlParsed.query.url || urlParsed.protocol !== 'https:') {
         res.writeHead(409);
-        res.end('Parameter missing');
+        res.end();
         return;
       }
-      requestGet({
+      req.pipe(requestGet({
         url: urlParsed.query.url,
         oauth: {
           consumer_key: process.env.consumer,
@@ -43,7 +43,7 @@ function handler (req, res) {
         delete response.headers['pragma'];
         delete response.headers['set-cookie'];
         response.headers['cache-control'] = 'private, max-age=3600';
-      }).pipe(res);
+      })).pipe(res);
       break;
     default:
       res.writeHead(405);

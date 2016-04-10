@@ -1,13 +1,11 @@
 {
-  "name": "ipgc-proxy",
+  "name": "oauth-proxy",
   "version": "1.0.0",
-  "description": "ipgc oauth proxy",
+  "description": "Open Authorization Proxy",
   "scripts": {
     "start": "node --max-old-space-size=450 --gc_global --gc_interval=100 server.js"
   },
   "author": "Jacob Friis Saxberg",
-  "license": "UNLICENSED",
-  "private": true,
   "dependencies": {
     "request": "2.70.0"
   }
