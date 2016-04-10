@@ -13,7 +13,7 @@ function handler (req, res) {
     res.end('Not found');
     return;
   }
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Origin', process.env.origin);
   res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET');
   res.setHeader('Access-Control-Allow-Headers', 'accept, origin, content-type');
   res.setHeader('Access-Control-Max-Age', 86400);
