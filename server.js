@@ -23,7 +23,10 @@ function handler (req, res) {
       res.end();
       break;
     case 'GET':
-      if (!urlParsed.query.url || urlParsed.protocol !== 'https:') {
+      if (
+          !urlParsed.query.url ||
+          process.env.hostnames.split(',').indexOf(urlParse(urlParsed.query.url).hostname) === -1
+      ) {
         res.writeHead(409);
         res.end();
         return;
