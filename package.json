@@ -1,6 +1,6 @@
 {
   "name": "oauperator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Open Authorization Proxy",
   "scripts": {
     "start": "node --max-old-space-size=450 --gc_global --gc_interval=100 server.js"
