@@ -36,8 +36,7 @@ function handler (req, res) {
           token: urlParsed.query.token,
           token_secret: urlParsed.query.token_secret
         },
-        json: true,
-        gzip: true
+        json: true
       }).on('response', (response) => {
         delete response.headers['expires'];
         delete response.headers['cache-control'];
