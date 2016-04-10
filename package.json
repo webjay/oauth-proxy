@@ -1,5 +1,5 @@
 {
-  "name": "oauth-proxy",
+  "name": "oauperator",
   "version": "1.0.0",
   "description": "Open Authorization Proxy",
   "scripts": {
@@ -8,5 +8,20 @@
   "author": "Jacob Friis Saxberg",
   "dependencies": {
     "request": "2.70.0"
-  }
+  },
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webjay/oauth-proxy.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/webjay/oauth-proxy/issues"
+  },
+  "homepage": "https://github.com/webjay/oauth-proxy#readme",
+  "keywords": [
+    "oauth",
+    "proxy",
+    "api"
+  ]
 }
