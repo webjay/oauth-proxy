@@ -2,6 +2,8 @@
 
 Open Authorization Proxy that allows the client to keep the JSON for an hour.
 
+    npm install oauperator
+
 ## Environment variables
 
 - `origin`: for CORS `Access-Control-Allow-Origin`.
