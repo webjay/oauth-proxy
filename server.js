@@ -1,19 +1,16 @@
 'use strict';
 
-const request = require('request');
+const requestGet = require('request').get;
 const createServer = require('http').createServer;
 const urlParse = require('url').parse;
 
 const Port = process.env.PORT || 3000;
 
-function defaultResponse (res) {
-  res.end();
-}
-
 function handler (req, res) {
-  if (urlParse(req.url).pathname !== '/') {
+  const urlParsed = urlParse(req.url, true);
+  if (urlParsed.pathname !== '/') {
     res.writeHead(404);
-    res.end('not found');
+    res.end('Not found');
     return;
   }
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -23,18 +20,21 @@ function handler (req, res) {
   res.setHeader('Access-Control-Expose-Headers', 'X-Rate-Limit-Remaining');
   switch (req.method) {
     case 'GET':
-      const query = urlParse(req.url, true).query;
-      if (!query.url) return defaultResponse(res);
-      const oauth = {
-        consumer_key: process.env.consumer,
-        consumer_secret: process.env.consumer_secret,
-        token: process.env.token,
-        token_secret: process.env.token_secret
-      };
-      request.get({
-        url: query.url,
-        oauth: oauth,
-        json: true
+      if (!urlParsed.query.url) {
+        res.writeHead(409);
+        res.end('Parameter missing');
+        return;
+      }
+      requestGet({
+        url: urlParsed.query.url,
+        oauth: {
+          consumer_key: process.env.consumer,
+          consumer_secret: process.env.consumer_secret,
+          token: urlParsed.query.token,
+          token_secret: urlParsed.query.token_secret
+        },
+        json: true,
+        gzip: true
       }).on('response', (response) => {
         delete response.headers['expires'];
         delete response.headers['cache-control'];
@@ -44,7 +44,8 @@ function handler (req, res) {
       }).pipe(res);
       break;
     default:
-      defaultResponse(res);
+      res.writeHead(405);
+      res.end();
       break;
   }
 }
