@@ -19,6 +19,9 @@ function handler (req, res) {
   res.setHeader('Access-Control-Max-Age', 86400);
   res.setHeader('Access-Control-Expose-Headers', 'X-Rate-Limit-Remaining');
   switch (req.method) {
+    case 'OPTIONS':
+      res.end();
+      break;
     case 'GET':
       if (!urlParsed.query.url) {
         res.writeHead(409);
